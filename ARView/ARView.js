@@ -1,9 +1,8 @@
 /**
- * Ryan Guinn
+ * Ryan Guinn and Brandon Jackson
  */
 var map = null;	        // a Google Map object
 var timer = null;       // an interval timer
-var update = 0;         // update counter
 var gmarkers = [];
 
 $(document).ready(function() {      // when document loads, do some initialization
@@ -13,8 +12,7 @@ $(document).ready(function() {      // when document loads, do some initializati
     addMarker(map, startPoint, "MSOE Athletic Field", "The place to be!", false);  // add a push-pin to the map
 
     // initialize button event handlers (note this shows an alternative to $("#id).click(handleClick)
-    $("#start").on( "click", doAjaxRequest);
-    $("#stop").on( "click", stopTimer);
+    $("#update").on( "click", doAjaxRequest);
 });
 
 // Display a Google Map centered on the specified position. If the map already exists, update the center point of the map per the specified position
@@ -40,11 +38,10 @@ function displayMap(position) {
 // param position - the google.maps.LatLng position of the marker on the map
 // param title - the title of the marker
 // param content - the text that appears when a user clicks on the marker
-function addMarker(map, position, title, content, alt) {
+function addMarker(map, position, title, content) {
 	  "use strict";
 	      var markerOptions = {
               position: position, // position of the push-pin
-              icon: (alt)?"https://maps.google.com/mapfiles/kml/shapes/bus_maps.png":"https://maps.google.com/mapfiles/kml/shapes/play_maps.png",
               map: map,	// the map to put the pin into
               title: title, // title of the pin
               clickable: true // if true, enable info window pop-up
@@ -88,17 +85,6 @@ function doAjaxRequest() {
 
     if( timer === null )
         timer = setInterval(doAjaxRequest, 5000);
-}
-
-// This function stops the timer and nulls the reference
-function stopTimer() {
-	  "use strict";
-    clearInterval(timer);
-    timer = null;
-    for(let i=0; i < gmarkers.length; i++){
-        gmarkers[i].setMap(null);
-    }
-    $("#table1").html("");
 }
 
 // This function is called if the Ajax request succeeds.
