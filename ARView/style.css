@@ -1,0 +1,11 @@
+/*Ryan Guinn*/
+
+#map {
+    width: 100%;
+    height: 400px;
+}
+
+#error {
+    color: red;
+    display: none;
+}
