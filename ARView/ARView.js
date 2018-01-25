@@ -9,10 +9,10 @@ $(document).ready(function() {      // when document loads, do some initializati
 	  "use strict";
     var startPoint = new google.maps.LatLng(43.044240, -87.906446);// location of MSOE athletic field
     displayMap(startPoint); // map this starting location (see code below) using Google Maps
-    addMarker(map, startPoint, "MSOE Athletic Field", "The place to be!", false);  // add a push-pin to the map
+    //addMarker(map, startPoint, "MSOE Athletic Field", "The place to be!", false);  // add a push-pin to the map
 
     // initialize button event handlers (note this shows an alternative to $("#id).click(handleClick)
-    $("#update").on( "click", doAjaxRequest);
+    $("#update").on( "click", mockAjaxRequest());//doAjaxRequest);
 });
 
 // Display a Google Map centered on the specified position. If the map already exists, update the center point of the map per the specified position
@@ -87,33 +87,32 @@ function doAjaxRequest() {
         timer = setInterval(doAjaxRequest, 5000);
 }
 
+function mockAjaxRequest(){
+    var testTags = [{lat: 43.035523, lon: -87.910847}, {lat: 43.037593, lon: -87.934879}, {lat: 43.010172, lon: -87.896685}];
+    var testData = {data:{tags:testTags}};
+    handleSuccess(testData);
+}
+
 // This function is called if the Ajax request succeeds.
 // The response from the server is a JavaScript object!
 function handleSuccess( response, textStatus, jqXHR ) {
 	  "use strict";
-    if(response.hasOwnProperty("bustime-response")) {
-        if(response["bustime-response"].hasOwnProperty("error")){
-            $("#error").html(response["bustime-response"].error[0].msg);
+    if(response.hasOwnProperty("data")) {
+        if(response["data"].hasOwnProperty("error")){
+            $("#error").html(response["data"].error[0].msg);
             $("#error").show();
         } else {
             $("#error").html("");
             $("#error").hide();
-            var innerhtml = "<tbody><tr><th>Bus</th><th>Route</th><th>latitude</th><th>longitude</th><th>speed(MPH)</th><th>dist(mi)</th></tr>";
-            var vehicles = response["bustime-response"].vehicle;
-            for (let i = 0; i < vehicles.length; i++) {
-                var curBus = vehicles[i];
-                var latitude = curBus.lat;
-                var longitude = curBus.lon;
+            var tags = response["data"].tags;
+            for (let i = 0; i < tags.length; i++) {
+                var curTag = tags[i];
+                var latitude = curTag.lat;
+                var longitude = curTag.lon;
                 var position = new google.maps.LatLng(latitude, longitude); // creates a Google position object
-                innerhtml += "<tr><td>" + curBus.vid +
-                    "</td><td>" + curBus.des +
-                    "</td><td>" + Number(latitude).toFixed(4) +
-                    "</td><td>" + Number(longitude).toFixed(4) +
-                    "</td><td>" + curBus.spd +
-                    "</td><td>" + Number(curBus.pdist / 5280).toFixed(4) + "</td></tr>";
-                addMarker(map, position, "Bus Number: " + curBus.vid, curBus.des, true);
+
+                addMarker(map, position, "Tag Number: " + i, "This is a placeholder description");
             }
-            $("#table1").html(innerhtml + "</tbody>");
         }
     } else{
         $("#error").html(response.status);
