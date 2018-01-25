@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- Connor Hibbs -->
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Connor Hibbs's Bus Tracker</title>
+
+    <!-- Bootstrap CSS --> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Local CSS -->     <link rel="stylesheet" href="BusTracker.css">
+
+    <!-- JQuery -->        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Google Maps -->   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRST_hQ4q9Y-iiT2ze19-fVl8LGe566dU"></script>
+
+    <!-- Dev Key -->       <script src="key.js"></script>
+    <!-- Local JS -->      <script src="BusTracker.js"></script>
+
+</head>
+
+<body>
+<div class="alert alert-danger" id="alertPopup"></div>
+
+<div id="form">
+    <label>Route: </label><input id="route", type=text value="">
+    <input id="start" class="btn btn-success" type=button value="Start">
+    <input id="stop"  class="btn btn-danger"  type=button value="Stop">
+    <input id="pause" class="btn btn-primary" type=button value="Pause">
+</div>
+
+<label id="update"></label>
+
+<br>
+
+<input id="keepThisMany" type="checkbox">
+<label>Keep this many icons</label>
+
+<br>
+
+<div id="map"></div>
+<table id="table1" class="table table-striped table-hover"></table>
+
+</body>
+</html>

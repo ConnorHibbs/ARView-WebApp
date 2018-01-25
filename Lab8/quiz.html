@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+
+</head>
+<body ng-app="lab" ng-init="messages=[]">
+
+    Add item:<input ng-model='inputBox' type='text' />
+
+    <br><button ng-click="messages.push(inputBox.text())">Add message</button>
+    <p>Messages go here.</p>
+
+    <table ng-model='tabel'>
+        <tbody>
+        <tr ng-repeat="entry in messages track by $index">
+            <td>{{entry}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
+

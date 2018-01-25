@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!-- Connor Hibbs -->
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Connor's Angular Bus Tracker</title>
+
+    <!-- Bootstrap CSS --> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Local CSS -->     <link rel="stylesheet" href="BusTracker.css">
+
+    <!-- Angular JS -->    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <!-- Bootstrap JS -->  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+    <!-- Google Maps -->   <script type="text/javascript" src="https://maps.google.com/maps/api/js"></script>
+
+    <!-- Dev Key -->       <script src="key.js"></script>
+    <!-- Local JS -->      <script src="BusTracker.js"></script>
+
+</head>
+
+<body ng-app="busTracker"><div ng-controller="busController">
+
+<div class="alert alert-danger" ng-bind="error" ng-show="errorIsVisible"></div>
+
+<div>
+    <label>Route: </label><input id="route" ng-model="route" type=text>
+    <button class="btn btn-success" ng-click="startButton()">Start</button>
+    <button class="btn btn-danger"  ng-click="stopButton()">Stop</button>
+    <button class="btn btn-primary" ng-click="pauseButton()">{{pauseText}}</button>
+</div>
+
+<label ng-show="updateIsVisible">Update {{update}}</label>
+
+<br>
+
+<div id="map"></div>
+
+<table id="table1" class="table table-striped table-hover" ng-show="tableIsVisible">
+    <thead><tr><th>Bus</th><th>Route</th><th>Latitude</th><th>Longitude</th><th>Speed(MPH)</th><th>Distance(mi)</th></tr></thead>
+    <tbody><tr ng-repeat="entry in buses track by $index">
+        <td>{{entry.vid}}</td>
+        <td>{{entry.rt}} {{entry.des}}</td>
+        <td>{{entry.lat|number:4}}</td>
+        <td>{{entry.lon|number:4}}</td>
+        <td>{{entry.spd}}</td>
+        <td>{{entry.pdist/5280|number:2}}</td>
+    </tr></tbody>
+</table>
+
+</div></body>
+</html>
