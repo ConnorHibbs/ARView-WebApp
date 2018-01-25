@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Geolocation Lab</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+
+    <script src="Geolocation.js"></script>
+    <link rel="stylesheet" href="Geolocation.css">
+
+</head>
+
+<body>
+<input id="getloc" type=button value="Track">
+<input id= "stop" type=button value="Stop">
+<input id= "save" type=button value="Save">
+<input id="route" type="text" value="myRoute" >
+<p id="message"></p>
+<p id="display"></p>
+<div id="map"></div>
+</body>
+</html>
+
+<!--
+Install MongoDB on your laptop.
+
+Download the files mongoGPSServer.js and Geolocation.html from the course website.
+
+In the Geolocation.html file, add a handleSave function that is executed when the Save button is pressed.
+
+Move the $ajax call in the handleSuccess function to the handleSave function. In the handleSuccess function, replace the $ajax call with code that saves the data to an array.
+
+In the handleSave function, iterate through the array, making an $ajax call for each element of the array.
+
+To run the Geolocation.html file on a separate device, modify the localhost url in the $ajax call to be the IP address of your laptop.
+-->
