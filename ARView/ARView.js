@@ -20,7 +20,7 @@ $(document).ready(function() {      // when document loads, do some initializati
 function displayMap(position) {
 	  "use strict";
 	      var mapOptions = {
-        zoom: 13, // range 0 to 21 (the mouse can be used to zoom in and out)
+        zoom: 14, // range 0 to 21 (the mouse can be used to zoom in and out)
         center: position, // the position at the center of the map
         mapTypeId: google.maps.MapTypeId.ROADMAP // ROADMAP, SATELLITE, or HYBRID
     };
@@ -72,8 +72,8 @@ function doAjaxRequest() {
     // $("#update").html(update);
     // var route = $("#route").val();
     $.ajax({
-        url: "http://192.168.2.12:8080/graphql",  // the url of the servlet returning the Ajax response
-        data: '{"query":"{ tagsByLocation(lat: 43.130, lon: -88.002, radius: 0.01) { lat, lon, ele, title, text, dtg, userId}}"}',
+        url: "http://192.168.43.65:8080/graphql",  // the url of the servlet returning the Ajax response
+        data: '{"query":"{ tagsByLocation(lat: 43.130, lon: -88.002, radius: 0.02) { lat, lon, ele, title, text, dtg, userId}}"}',
         async: true,
         type: "POST",
         contentType: "application/json",
