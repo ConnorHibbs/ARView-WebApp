@@ -7,12 +7,12 @@ var gmarkers = [];
 
 $(document).ready(function() {      // when document loads, do some initialization
 	  "use strict";
-    var startPoint = new google.maps.LatLng(43.044240, -87.906446);// location of MSOE athletic field
+    var startPoint = new google.maps.LatLng(43.13093, -88.002939);// location of MSOE athletic field
     displayMap(startPoint); // map this starting location (see code below) using Google Maps
     //addMarker(map, startPoint, "MSOE Athletic Field", "The place to be!", false);  // add a push-pin to the map
 
     // initialize button event handlers (note this shows an alternative to $("#id).click(handleClick)
-    $("#update").on( "click", mockAjaxRequest());//doAjaxRequest);
+    $("#update").click(doAjaxRequest);//mockAjaxRequest);
 });
 
 // Display a Google Map centered on the specified position. If the map already exists, update the center point of the map per the specified position
@@ -70,27 +70,30 @@ function addMarker(map, position, title, content) {
 // This function executes a JSON request to the CPULoadServlet
 function doAjaxRequest() {
 	  "use strict";
-    update++;
-    $("#update").html(update);
-    var route = $("#route").val();
-    var params = "key=" + key  + "&rt=" + route;
+    // $("#update").html(update);
+    // var route = $("#route").val();
     $.ajax({
-        url : "http://sapphire.msoe.edu:8080/BusTrackerProxy/BusInfo", // the url of the servlet returning the Ajax response
-        data : params, // key and route, for example "key=ABCDEF123456789&rt=31"
+        url : "http://155.92.179.218:8080/graphiql", // the url of the servlet returning the Ajax response
+        data: JSON.stringify({ "query": "tagsByLocation(lat: 43.130, lon: -88.002, radius: 0.01) { lat lon ele title text dtg userID } " }),
+        contentType: 'application/json',
         async: true,
         dataType: "json",
+        type: "post",
         success: handleSuccess,
         error: handleError
     });
 
-    if( timer === null )
-        timer = setInterval(doAjaxRequest, 5000);
+    //if( timer === null )
+    //    timer = setInterval(doAjaxRequest, 5000);
 }
 
 function mockAjaxRequest(){
-    var testTags = [{lat: 43.035523, lon: -87.910847}, {lat: 43.037593, lon: -87.934879}, {lat: 43.010172, lon: -87.896685}];
-    var testData = {data:{tags:testTags}};
-    handleSuccess(testData);
+    fetch('TestData.json')
+        .then((response) => response.json())
+        .then((response) => handleSuccess(response));
+    //handleSuccess(JSON.parse(TestData));
+    //var testTags = [{lat: 43.035523, lon: -87.910847}, {lat: 43.037593, lon: -87.934879}, {lat: 43.010172, lon: -87.896685}];
+    //var testData = {data:{tags:testTags}};
 }
 
 // This function is called if the Ajax request succeeds.
@@ -104,14 +107,18 @@ function handleSuccess( response, textStatus, jqXHR ) {
         } else {
             $("#error").html("");
             $("#error").hide();
-            var tags = response["data"].tags;
+            var tags = response["data"].tagsByLocation;
             for (let i = 0; i < tags.length; i++) {
                 var curTag = tags[i];
                 var latitude = curTag.lat;
                 var longitude = curTag.lon;
+                var title = curTag.title;
+                var text = curTag.text;
+                var date = curTag.dtg;
+                var user = curTag.userId;
                 var position = new google.maps.LatLng(latitude, longitude); // creates a Google position object
 
-                addMarker(map, position, "Tag Number: " + i, "This is a placeholder description");
+                addMarker(map, position, title, "Posted by: " + user + " on " + date + " - \"" + text + "\"");
             }
         }
     } else{
