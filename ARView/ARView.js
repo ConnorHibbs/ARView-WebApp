@@ -66,19 +66,17 @@ function addMarker(map, position, title, content) {
     }
 }
 
-
 // This function executes a JSON request to the CPULoadServlet
 function doAjaxRequest() {
 	  "use strict";
     // $("#update").html(update);
     // var route = $("#route").val();
     $.ajax({
-        url : "http://155.92.179.218:8080/graphiql", // the url of the servlet returning the Ajax response
-        data: JSON.stringify({ "query": "tagsByLocation(lat: 43.130, lon: -88.002, radius: 0.01) { lat lon ele title text dtg userID } " }),
-        contentType: 'application/json',
+        url: "http://192.168.2.12:8080/graphql",  // the url of the servlet returning the Ajax response
+        data: '{"query":"{ tagsByLocation(lat: 43.130, lon: -88.002, radius: 0.01) { lat, lon, ele, title, text, dtg, userId}}"}',
         async: true,
-        dataType: "json",
-        type: "post",
+        type: "POST",
+        contentType: "application/json",
         success: handleSuccess,
         error: handleError
     });
@@ -130,6 +128,11 @@ function handleSuccess( response, textStatus, jqXHR ) {
 // This function is called if the Ajax request fails (e.g. network error, bad url, server timeout, etc)
 function handleError(jqXHR, textStatus, errorThrown) {
     "use strict";
+
+    console.log("jqXHR", jqXHR);
+    console.log("textStatus", textStatus);
+    console.log("errorThrown", errorThrown);
+
     console.log("Error processing Ajax request!");
     $("#error").show();
     $("#error").html("Status: " + jqXHR.status + " " + jqXHR.statusText + " <em>" + textStatus + ": </em> Unable to retrieve response from the server.");
