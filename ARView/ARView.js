@@ -12,7 +12,10 @@ $(document).ready(function() {      // when document loads, do some initializati
     //addMarker(map, startPoint, "MSOE Athletic Field", "The place to be!", false);  // add a push-pin to the map
 
     // initialize button event handlers (note this shows an alternative to $("#id).click(handleClick)
-    $("#update").on( "click", mockAjaxRequest());//doAjaxRequest);
+    $("#update").click(function() {
+        //doAjaxRequest);
+        mockAjaxRequest();
+    });
 });
 
 // Display a Google Map centered on the specified position. If the map already exists, update the center point of the map per the specified position
