@@ -62,20 +62,26 @@ function addMarker(map, position, title, content) {
         infoWindow.open(map);
     });
 
-    if(gmarkers.length > 10){
-        gmarkers[0].setMap(null);
-        gmarkers.shift();
-    }
 }
 
 // This function executes a JSON request to the CPULoadServlet
 function doAjaxRequest() {
-	  "use strict";
+	"use strict";
+
+    gmarkers = [];
+
+    let lat = $("#latField")[0].value;
+    let lon = $("#lonField")[0].value;
+    let radius = $("#radiusField")[0].value;
+
+    console.log(lat, lon, radius);
+
+
     // $("#update").html(update);
     // var route = $("#route").val();
     $.ajax({
         url: "http://192.168.43.65:8080/graphql",  // the url of the servlet returning the Ajax response
-        data: '{"query":"{ tagsByLocation(lat: 43.130, lon: -88.002, radius: 0.02) { lat, lon, ele, title, text, dtg, userId}}"}',
+        data: '{"query":"{ tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') { lat, lon, ele, title, text, dtg, userId}}"}',
         async: true,
         type: "POST",
         contentType: "application/json",
@@ -99,7 +105,11 @@ function mockAjaxRequest(){
 // This function is called if the Ajax request succeeds.
 // The response from the server is a JavaScript object!
 function handleSuccess( response, textStatus, jqXHR ) {
-	  "use strict";
+	"use strict";
+
+    console.log("Response:", response.data.tagsByLocation);
+
+
     if(response.hasOwnProperty("data")) {
         if(response["data"].hasOwnProperty("error")){
             $("#error").html(response["data"].error[0].msg);
