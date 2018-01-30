@@ -13,7 +13,6 @@ $(document).ready(function() {      // when document loads, do some initializati
 
     // initialize button event handlers (note this shows an alternative to $("#id).click(handleClick)
     $("#update").click(doAjaxRequest);//mockAjaxRequest);
-});
 
 // Display a Google Map centered on the specified position. If the map already exists, update the center point of the map per the specified position
 // param position - a google.maps.LatLng object containing the coordinates to center the map around
