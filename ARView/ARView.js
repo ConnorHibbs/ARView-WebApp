@@ -6,13 +6,14 @@ var timer = null;       // an interval timer
 var gmarkers = [];
 
 $(document).ready(function() {      // when document loads, do some initialization
-	  "use strict";
+    "use strict";
     var startPoint = new google.maps.LatLng(43.13093, -88.002939);// location of MSOE athletic field
     displayMap(startPoint); // map this starting location (see code below) using Google Maps
     //addMarker(map, startPoint, "MSOE Athletic Field", "The place to be!", false);  // add a push-pin to the map
 
     // initialize button event handlers (note this shows an alternative to $("#id).click(handleClick)
     $("#update").click(doAjaxRequest);//mockAjaxRequest);
+});
 
 // Display a Google Map centered on the specified position. If the map already exists, update the center point of the map per the specified position
 // param position - a google.maps.LatLng object containing the coordinates to center the map around
