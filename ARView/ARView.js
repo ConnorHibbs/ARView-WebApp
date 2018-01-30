@@ -12,7 +12,7 @@ $(document).ready(function() {      // when document loads, do some initializati
     //addMarker(map, startPoint, "MSOE Athletic Field", "The place to be!", false);  // add a push-pin to the map
 
     // initialize button event handlers (note this shows an alternative to $("#id).click(handleClick)
-    $("#update").click(doAjaxRequest);//mockAjaxRequest());
+    $("#update").click(mockAjaxRequest);//doAjaxRequest);//
 });
 
 // Display a Google Map centered on the specified position. If the map already exists, update the center point of the map per the specified position
@@ -62,18 +62,22 @@ function addMarker(map, position, title, content) {
 
 }
 
+function clearOverlays() {
+    for (let i = 0; i < gmarkers.length; i++ ) {
+        gmarkers[i].setMap(null);
+    }
+    gmarkers.length = 0;
+}
+
 // This function executes a JSON request to the CPULoadServlet
 function doAjaxRequest() {
 	"use strict";
-
-    gmarkers = [];
 
     let lat = $("#latField")[0].value;
     let lon = $("#lonField")[0].value;
     let radius = $("#radiusField")[0].value;
 
     console.log(lat, lon, radius);
-
 
     // $("#update").html(update);
     // var route = $("#route").val();
@@ -107,6 +111,7 @@ function handleSuccess( response, textStatus, jqXHR ) {
 
     console.log("Response:", response.data.tagsByLocation);
 
+    clearOverlays();
 
     if(response.hasOwnProperty("data")) {
         if(response["data"].hasOwnProperty("error")){
