@@ -12,7 +12,9 @@ $(document).ready(function() {      // when document loads, do some initializati
     //addMarker(map, startPoint, "MSOE Athletic Field", "The place to be!", false);  // add a push-pin to the map
 
     // initialize button event handlers (note this shows an alternative to $("#id).click(handleClick)
-    $("#update").click(mockAjaxRequest);//doAjaxRequest);//
+    $("#update").click(function() {
+        doAjaxRequest();
+    });
 });
 
 // Display a Google Map centered on the specified position. If the map already exists, update the center point of the map per the specified position
@@ -73,17 +75,21 @@ function clearOverlays() {
 function doAjaxRequest() {
 	"use strict";
 
-    let lat = $("#latField")[0].value;
-    let lon = $("#lonField")[0].value;
-    let radius = $("#radiusField")[0].value;
+    let lat = parseFloat($("#latField")[0].value);
+    let lon = parseFloat($("#lonField")[0].value);
+    let radius = parseFloat($("#radiusField")[0].value);
 
     console.log(lat, lon, radius);
 
     // $("#update").html(update);
     // var route = $("#route").val();
+    console.log(lat);
+    console.log(lon);
+    console.log(radius);
     $.ajax({
-        url: "http://192.168.43.65:8080/graphql",  // the url of the servlet returning the Ajax response
-        data: '{"query":"{ tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') { lat, lon, ele, title, text, dtg, userId}}"}',
+        url: "https://btzotmwzcv.localtunnel.me/api/v1",  // the url of the servlet returning the Ajax response
+        //data: '{"query":"{tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') {lat lon _id username}}"}',
+        data: '{"query":"{tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') {lat lon _id username}}"}',
         async: true,
         type: "POST",
         contentType: "application/json",
