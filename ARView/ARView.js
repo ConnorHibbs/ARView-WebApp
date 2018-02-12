@@ -106,9 +106,8 @@ function doAjaxRequest() {
 function createTag(){
     $.ajax({
         url: "http://localhost:8080/api/v1",  // the url of the servlet returning the Ajax response
-        //data: '{"mutation":"{tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') {lat lon _id username dtg text title _id}}"}',
         data: '{"query":"' +
-        'mutation{createTag(lat: 43.041728, lon: -87.904974, ele:0, username: "Tim", text:"Tim tag1", title: "Test createTag", dtg: "Aug 2, 2017") {_id text lat lon ele dtg}}' +
+        'mutation{removeTag(id:20) {_id text lat lon ele dtg}}' +
         '"}',
         async: true,
         type: "POST",

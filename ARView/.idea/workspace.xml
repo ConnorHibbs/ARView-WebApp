@@ -32,17 +32,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ARView.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ARView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ARView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="109" column="23" lean-forward="true" selection-start-line="109" selection-start-column="23" selection-end-line="109" selection-end-column="23" />
+            <state relative-caret-position="77">
+              <caret line="109" column="62" lean-forward="false" selection-start-line="109" selection-start-column="62" selection-end-line="109" selection-end-column="62" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ARView.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ARView.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ARView.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="42">
@@ -176,12 +176,12 @@
       <workItem from="1516905226601" duration="11188000" />
       <workItem from="1517292971851" duration="25000" />
       <workItem from="1517293578516" duration="408000" />
-      <workItem from="1518203700673" duration="7876000" />
+      <workItem from="1518203700673" duration="8305000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36286000" />
+    <option name="totallyTimeSpent" value="36715000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -612,18 +612,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ARView.html">
+    <entry file="file://$PROJECT_DIR$/ARView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+        <state relative-caret-position="77">
+          <caret line="109" column="62" lean-forward="false" selection-start-line="109" selection-start-column="62" selection-end-line="109" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ARView.js">
+    <entry file="file://$PROJECT_DIR$/ARView.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="109" column="23" lean-forward="true" selection-start-line="109" selection-start-column="23" selection-end-line="109" selection-end-column="23" />
+        <state relative-caret-position="42">
+          <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
           <folding />
         </state>
       </provider>
