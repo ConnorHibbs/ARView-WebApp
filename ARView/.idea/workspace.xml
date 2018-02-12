@@ -35,8 +35,8 @@
       <file leaf-file-name="ARView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ARView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-217">
-              <caret line="37" column="46" lean-forward="false" selection-start-line="37" selection-start-column="46" selection-end-line="37" selection-end-column="46" />
+            <state relative-caret-position="410">
+              <caret line="250" column="152" lean-forward="false" selection-start-line="250" selection-start-column="152" selection-end-line="250" selection-end-column="152" />
               <folding />
             </state>
           </provider>
@@ -45,8 +45,8 @@
       <file leaf-file-name="ARView.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ARView.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="26">
+              <caret line="10" column="92" lean-forward="true" selection-start-line="10" selection-start-column="92" selection-end-line="10" selection-end-column="92" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -70,6 +70,12 @@
       <find>gmarkers</find>
       <find>update</find>
       <find>poste</find>
+      <find>marker</find>
+      <find>doaja</find>
+      <find>search</find>
+      <find>console.log(&quot;res</find>
+      <find>resop</find>
+      <find>curta</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -80,8 +86,8 @@
         <option value="$PROJECT_DIR$/BusTracker.html" />
         <option value="$PROJECT_DIR$/style.css" />
         <option value="$PROJECT_DIR$/TestData.json" />
-        <option value="$PROJECT_DIR$/ARView.js" />
         <option value="$PROJECT_DIR$/ARView.html" />
+        <option value="$PROJECT_DIR$/ARView.js" />
       </list>
     </option>
   </component>
@@ -183,7 +189,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40367000" />
+    <option name="totallyTimeSpent" value="44010000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -648,16 +654,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ARView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-217">
-          <caret line="37" column="46" lean-forward="false" selection-start-line="37" selection-start-column="46" selection-end-line="37" selection-end-column="46" />
+        <state relative-caret-position="410">
+          <caret line="250" column="152" lean-forward="false" selection-start-line="250" selection-start-column="152" selection-end-line="250" selection-end-column="152" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ARView.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="26">
+          <caret line="10" column="92" lean-forward="true" selection-start-line="10" selection-start-column="92" selection-end-line="10" selection-end-column="92" />
           <folding>
             <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>

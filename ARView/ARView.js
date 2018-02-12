@@ -32,11 +32,9 @@ $(document).ready(function() {      // when document loads, do some initializati
                 "Yes": function() {
                     $(this).dialog('close');
                     let latLng = JSON.stringify(event.latLng);
-                    console.log(latLng);
                     let arry = latLng.split(':');
                     let lat = arry[1].split(',')[0];
                     let lon = arry[2].split('}')[0];
-                    console.log(lon);
                     createTag(lat, lon);
 
                 },
@@ -82,6 +80,15 @@ function addMarker(map, position, title, content) {
     };
     // create the push-pin marker
     var marker = new google.maps.Marker(markerOptions);
+    marker.addListener('click', function() {
+        let latLng = JSON.stringify(marker.internalPosition);
+        let arry = latLng.split(':');
+        let lat = arry[1].split(',')[0];
+        let lon = arry[2].split('}')[0];
+        let id = searchForTagID(lat, lon);
+        console.log(id);
+        removeTag(id);
+    });
     gmarkers.push(marker);
 
     // now create the pop-up window that is displayed when you click the marker
@@ -125,6 +132,35 @@ function doAjaxRequest() {
         type: "POST",
         contentType: "application/json",
         success: handleSuccess,
+        error: handleError
+    });
+}
+
+function removeTag(id) {
+
+    let mutation = `
+    mutation {
+        removeTag(
+            id: ${id}, 
+        ) {
+            _id
+        }
+    }
+    `;
+    console.log(id);
+
+    console.log("Mutation:", mutation);
+
+    $.ajax({
+        url: "http://localhost:8080/api/v1",  // the url of the servlet returning the Ajax response
+        //data: '{"mutation":"{tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') {lat lon _id username dtg text title _id}}"}',
+        data: JSON.stringify({query: mutation}),
+        async: true,
+        type: "POST",
+        contentType: "application/json",
+        success: function(data){
+            console.log("successfully removed tag")
+        },
         error: handleError
     });
 }
@@ -183,6 +219,49 @@ function createTag(lat, lon){
     });
 }
 
+function searchForTagID(lat, lon){
+    console.log(lat);
+    console.log(lon);
+    var id;
+    let radius = 0.0001;
+    console.log("ajax now");
+    $.ajax({
+        url: "http://localhost:8080/api/v1",  // the url of the servlet returning the Ajax response
+        data: '{"query":"{tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') {lat lon _id username dtg text title _id}}"}',
+        async: false,
+        type: "POST",
+        contentType: "application/json",
+        success: function(response){
+            console.log("response");
+            var tags = response.data.tagsByLocation;
+            console.log(tags);
+            for (let i = 0; i < tags.length; i++) {
+                var curTag = tags[i];
+                console.log(curTag);
+
+                console.log("1");
+                console.log("1");
+                console.log("1");
+                console.log("1");
+                console.log("1");
+                console.log(curTag.lat);
+                console.log(lat);
+                console.log(curTag.lon);
+                console.log(lon);
+                if (parseFloat(curTag.lat).toFixed(5) === parseFloat(lat).toFixed(5) && parseFloat(curTag.lon).toFixed(5) === parseFloat(lon).toFixed(5)){
+                    console.log(curTag);
+                    id = curTag._id;
+                    console.log(id);
+                    return id;
+                }
+            }
+        },
+        error: function(){console.log('there was an error');}
+    });
+    console.log("id: " + id);
+    return id;
+}
+
 function mockAjaxRequest(){
     fetch('TestData.json')
         .then((response) => response.json())
@@ -211,7 +290,6 @@ function handleSuccess( response, textStatus, jqXHR ) {
             var tags = response["data"].tagsByLocation;
             for (let i = 0; i < tags.length; i++) {
                 var curTag = tags[i];
-                console.log(curTag);
                 var latitude = curTag.lat;
                 var longitude = curTag.lon;
                 var title = curTag.title;
