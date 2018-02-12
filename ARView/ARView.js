@@ -15,6 +15,9 @@ $(document).ready(function() {      // when document loads, do some initializati
     $("#update").click(function() {
         doAjaxRequest();
     });
+    $("#create").click(function() {
+        createTag();
+    });
 });
 
 // Display a Google Map centered on the specified position. If the map already exists, update the center point of the map per the specified position
@@ -83,13 +86,12 @@ function doAjaxRequest() {
 
     // $("#update").html(update);
     // var route = $("#route").val();
-    console.log(lat);
-    console.log(lon);
-    console.log(radius);
     $.ajax({
-        url: "https://btzotmwzcv.localtunnel.me/api/v1",  // the url of the servlet returning the Ajax response
-        //data: '{"query":"{tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') {lat lon _id username}}"}',
-        data: '{"query":"{tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') {lat lon _id username}}"}',
+        url: "http://localhost:8080/api/v1",  // the url of the servlet returning the Ajax response
+        //data: '{"query":"{tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') {lat lon _id username dtg text title _id}}"}',
+        data: '{"query":"' +
+        '{tagsByLocation(lat: 43.041728, lon: -87.904974, radius: 0.01) {lat lon _id username dtg text title _id}}' +
+        '"}',
         async: true,
         type: "POST",
         contentType: "application/json",
@@ -99,6 +101,21 @@ function doAjaxRequest() {
 
     //if( timer === null )
     //    timer = setInterval(doAjaxRequest, 5000);
+}
+
+function createTag(){
+    $.ajax({
+        url: "http://localhost:8080/api/v1",  // the url of the servlet returning the Ajax response
+        //data: '{"mutation":"{tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') {lat lon _id username dtg text title _id}}"}',
+        data: '{"query":"' +
+        'mutation{createTag(lat: 43.041728, lon: -87.904974, ele:0, username: "Tim", text:"Tim tag1", title: "Test createTag", dtg: "Aug 2, 2017") {_id text lat lon ele dtg}}' +
+        '"}',
+        async: true,
+        type: "POST",
+        contentType: "application/json",
+        success: handleSuccess,
+        error: handleError
+    });
 }
 
 function mockAjaxRequest(){
@@ -129,12 +146,13 @@ function handleSuccess( response, textStatus, jqXHR ) {
             var tags = response["data"].tagsByLocation;
             for (let i = 0; i < tags.length; i++) {
                 var curTag = tags[i];
+                console.log(curTag);
                 var latitude = curTag.lat;
                 var longitude = curTag.lon;
                 var title = curTag.title;
                 var text = curTag.text;
                 var date = curTag.dtg;
-                var user = curTag.userId;
+                var user = curTag.username;
                 var position = new google.maps.LatLng(latitude, longitude); // creates a Google position object
 
                 addMarker(map, position, title, "Posted by: " + user + " on " + date + " - \"" + text + "\"");
