@@ -118,10 +118,10 @@ function createTag(){
             lat: ${lat},
             lon: ${lon},
             ele: ${ele},
-            username: ${username},
-            title: ${title},
-            text: ${text},
-            dtg: ${dtg} 
+            username: "${username}",
+            title: "${title}",
+            text: "${text}",
+            dtg: "${dtg}" 
         ) {
             _id
             title
@@ -134,6 +134,8 @@ function createTag(){
         }
     }
     `;
+
+    console.log("Mutation:", mutation);
 
     /*
     '{"query":"' +
