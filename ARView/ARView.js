@@ -7,6 +7,7 @@ var gmarkers = [];
 
 $(document).ready(function() {      // when document loads, do some initialization
     "use strict";
+
     var startPoint = new google.maps.LatLng(43.13093, -88.002939);// location of MSOE athletic field
     displayMap(startPoint); // map this starting location (see code below) using Google Maps
     //addMarker(map, startPoint, "MSOE Athletic Field", "The place to be!", false);  // add a push-pin to the map
@@ -17,6 +18,34 @@ $(document).ready(function() {      // when document loads, do some initializati
     });
     $("#create").click(function() {
         createTag();
+    });
+    google.maps.event.addListener(map, 'click', function(event) {
+        $("#dialog-confirm").html("Do you want to make a tag at " + event.latLng + "?");
+        // Define the Dialog and its properties.
+        $("#dialog-confirm").dialog({
+            resizable: false,
+            modal: true,
+            title: "",
+            height: 250,
+            width: 400,
+            buttons: {
+                "Yes": function() {
+                    $(this).dialog('close');
+                    let latLng = JSON.stringify(event.latLng);
+                    console.log(latLng);
+                    let arry = latLng.split(':');
+                    let lat = arry[1].split(',')[0];
+                    let lon = arry[2].split('}')[0];
+                    console.log(lon);
+                    createTag(lat, lon);
+
+                },
+                "No": function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+        console.log(event.da.x);
     });
 });
 
@@ -88,28 +117,25 @@ function doAjaxRequest() {
     // var route = $("#route").val();
     $.ajax({
         url: "http://localhost:8080/api/v1",  // the url of the servlet returning the Ajax response
-        //data: '{"query":"{tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') {lat lon _id username dtg text title _id}}"}',
-        data: '{"query":"' +
-        '{tagsByLocation(lat: 43.041728, lon: -87.904974, radius: 0.01) {lat lon _id username dtg text title _id}}' +
-        '"}',
+        data: '{"query":"{tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') {lat lon _id username dtg text title _id}}"}',
+        // data: '{"query":"' +
+        // '{tagsByLocation(lat: 43.041728, lon: -87.904974, radius: 0.01) {lat lon _id username dtg text title _id}}' +
+        // '"}',
         async: true,
         type: "POST",
         contentType: "application/json",
         success: handleSuccess,
         error: handleError
     });
-
-    //if( timer === null )
-    //    timer = setInterval(doAjaxRequest, 5000);
 }
 
-function createTag(){
-    let lat = 43.041728;
-    let lon = -87.904974;
+function createTag(lat, lon){
+    console.log(lat);
+    console.log(lon);
     let ele = 0;
     let username = "Tim";
     let title = "Test createTag";
-    let text = "Tim tag1";
+    let text = "Tim tag2";
     let dtg = "Aug 2, 2017";
 
     let mutation = `
@@ -150,7 +176,9 @@ function createTag(){
         async: true,
         type: "POST",
         contentType: "application/json",
-        success: handleSuccess,
+        success: function(data){
+            console.log("successfully added tag")
+        },
         error: handleError
     });
 }
