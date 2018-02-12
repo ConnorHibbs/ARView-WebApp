@@ -43,7 +43,6 @@ $(document).ready(function() {      // when document loads, do some initializati
                 }
             }
         });
-        console.log(event.da.x);
     });
 });
 
@@ -86,7 +85,6 @@ function addMarker(map, position, title, content) {
         let lat = arry[1].split(',')[0];
         let lon = arry[2].split('}')[0];
         let id = searchForTagID(lat, lon);
-        console.log(id);
         removeTag(id);
     });
     gmarkers.push(marker);
@@ -118,7 +116,6 @@ function doAjaxRequest() {
     let lon = parseFloat($("#lonField")[0].value);
     let radius = parseFloat($("#radiusField")[0].value);
 
-    console.log(lat, lon, radius);
 
     // $("#update").html(update);
     // var route = $("#route").val();
@@ -147,9 +144,6 @@ function removeTag(id) {
         }
     }
     `;
-    console.log(id);
-
-    console.log("Mutation:", mutation);
 
     $.ajax({
         url: "http://localhost:8080/api/v1",  // the url of the servlet returning the Ajax response
@@ -166,8 +160,6 @@ function removeTag(id) {
 }
 
 function createTag(lat, lon){
-    console.log(lat);
-    console.log(lon);
     let ele = 0;
     let username = "Tim";
     let title = "Test createTag";
@@ -196,8 +188,6 @@ function createTag(lat, lon){
         }
     }
     `;
-
-    console.log("Mutation:", mutation);
 
     /*
     '{"query":"' +
@@ -237,28 +227,14 @@ function searchForTagID(lat, lon){
             console.log(tags);
             for (let i = 0; i < tags.length; i++) {
                 var curTag = tags[i];
-                console.log(curTag);
-
-                console.log("1");
-                console.log("1");
-                console.log("1");
-                console.log("1");
-                console.log("1");
-                console.log(curTag.lat);
-                console.log(lat);
-                console.log(curTag.lon);
-                console.log(lon);
                 if (parseFloat(curTag.lat).toFixed(5) === parseFloat(lat).toFixed(5) && parseFloat(curTag.lon).toFixed(5) === parseFloat(lon).toFixed(5)){
-                    console.log(curTag);
                     id = curTag._id;
-                    console.log(id);
                     return id;
                 }
             }
         },
-        error: function(){console.log('there was an error');}
+        error: handleError
     });
-    console.log("id: " + id);
     return id;
 }
 
