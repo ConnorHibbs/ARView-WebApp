@@ -104,12 +104,47 @@ function doAjaxRequest() {
 }
 
 function createTag(){
+    let lat = 43.041728;
+    let lon = -87.904974;
+    let ele = 0;
+    let username = "Tim";
+    let title = "Test createTag";
+    let text = "Tim tag1";
+    let dtg = "Aug 2, 2017";
+
+    let mutation = `
+    mutation {
+        createTag(
+            lat: ${lat},
+            lon: ${lon},
+            ele: ${ele},
+            username: ${username},
+            title: ${title},
+            text: ${text},
+            dtg: ${dtg} 
+        ) {
+            _id
+            title
+            text
+            username
+            lat
+            lon
+            ele
+            dtg
+        }
+    }
+    `;
+
+    /*
+    '{"query":"' +
+    'mutation{createTag(lat: 43.041728, lon: -87.904974, ele:0, username: "Tim", text:"Tim tag1", title: "Test createTag", dtg: "Aug 2, 2017") {_id text lat lon ele dtg}}' +
+    '"}',
+    */
+
     $.ajax({
         url: "http://localhost:8080/api/v1",  // the url of the servlet returning the Ajax response
         //data: '{"mutation":"{tagsByLocation(lat: ' + lat + ', lon: ' + lon + ', radius: ' + radius + ') {lat lon _id username dtg text title _id}}"}',
-        data: '{"query":"' +
-        'mutation{createTag(lat: 43.041728, lon: -87.904974, ele:0, username: "Tim", text:"Tim tag1", title: "Test createTag", dtg: "Aug 2, 2017") {_id text lat lon ele dtg}}' +
-        '"}',
+        data: JSON.stringify({query: mutation}),
         async: true,
         type: "POST",
         contentType: "application/json",
